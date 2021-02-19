@@ -9,6 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.codepath.apps.restclienttemplate"
+        vectorDrawables.useSupportLibrary = true
         minSdkVersion 21
         targetSdkVersion 29
 
@@ -51,4 +52,6 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'com.facebook.stetho:stetho:1.5.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
+    implementation "androidx.vectordrawable:vectordrawable:1.0.0" // VectorDrawableCompat
+    implementation "androidx.vectordrawable:vectordrawable-animated:1.0.0" // AnimatedVectorDrawableCompat
 }
