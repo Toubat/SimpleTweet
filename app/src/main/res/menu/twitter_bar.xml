@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_search"
+        android:id="@+id/compose"
         android:icon="@drawable/ic_compose"
-        android:orderInCategory="4"
+        android:orderInCategory="7"
         android:title="Send"
         app:showAsAction="always|collapseActionView" />
 

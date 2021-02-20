@@ -2,10 +2,12 @@ package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -39,6 +41,9 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
+        Drawable drawable = ContextCompat.getDrawable(this, R.drawable.ic_launcher_twitter);
+        toolbar.setLogo(drawable);
+        // toolbar.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_launcher_twitter));
         setSupportActionBar(toolbar);
 
         client = TwitterApp.getRestClient(this);
