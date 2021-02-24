@@ -86,7 +86,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context, DetailedActivity.class);
+                    Intent i = new Intent(context, ComposeActivity.class);
                     i.putExtra("tweet", Parcels.wrap(tweet));
                     context.startActivity(i);
                 }
