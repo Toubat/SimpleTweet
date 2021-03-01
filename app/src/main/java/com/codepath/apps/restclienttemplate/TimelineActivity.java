@@ -5,10 +5,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -16,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -24,6 +27,7 @@ import com.codepath.apps.restclienttemplate.models.TweetDao;
 import com.codepath.apps.restclienttemplate.models.TweetWithUser;
 import com.codepath.apps.restclienttemplate.models.User;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +38,7 @@ import java.util.List;
 
 import okhttp3.Headers;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements ComposeTweetDialogFragment.EditNameDialogListener {
 
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 100;
@@ -46,6 +50,7 @@ public class TimelineActivity extends AppCompatActivity {
     TweetsAdapter adapter;
     SwipeRefreshLayout swipeContainer;
     EndlessRecyclerViewScrollListener scrollListener;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,7 @@ public class TimelineActivity extends AppCompatActivity {
         tweetDao = ((TwitterApp) getApplicationContext()).getMyDatabase().tweetDao();
 
         swipeContainer = findViewById(R.id.swipeContainer);
+        floatingActionButton = findViewById(R.id.floatingButton);
 
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(
@@ -76,6 +82,12 @@ public class TimelineActivity extends AppCompatActivity {
             public void onRefresh() {
                 Log.i(TAG, "Fetching new data!");
                 populateHomeTimeLine();
+            }
+        });
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEditDialog(TimelineActivity.this);
             }
         });
 
@@ -111,7 +123,12 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
         populateHomeTimeLine();
+    }
 
+    private void showEditDialog(Context context) {
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeTweetDialogFragment composeTweetDialogFragment = ComposeTweetDialogFragment.newInstance("Some Title", context);
+        composeTweetDialogFragment.show(fm, "fragment_edit_name");
     }
 
     // This is where we will make another API call to get the next page of tweets and add the objects to our current list of tweets
@@ -208,5 +225,12 @@ public class TimelineActivity extends AppCompatActivity {
             // scroll to top of view
             rvTweets.smoothScrollToPosition(0);
         }
+    }
+
+    @Override
+    public void onFinishEditDialog(Tweet tweet) {
+        tweets.add(0, tweet);
+        adapter.notifyItemChanged(0);
+        rvTweets.smoothScrollToPosition(0);
     }
 }
