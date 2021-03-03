@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".DetailedActivity">
+
+    <ImageView
+        android:id="@+id/ivProfileImageDetailed"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:contentDescription="@string/photo"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvScreenNameDetailed"
+        android:layout_width="335dp"
+        android:layout_height="58dp"
+        android:layout_above="@+id/tvBodyDetailed"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/ivProfileImageDetailed"
+        android:textSize="24sp"
+        tools:text="sample text" />
+
+    <TextView
+        android:id="@+id/tvBodyDetailed"
+        android:layout_width="391dp"
+        android:layout_height="105dp"
+        android:layout_below="@+id/ivProfileImageDetailed"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:autoLink="all"
+        android:minLines="5"
+        android:textSize="18sp"
+        tools:autoLink="all"
+        tools:layout_marginStart="10dp"
+        tools:text="This is my tweet" />
+
+    <Button
+        android:id="@+id/btnDetailed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvBodyDetailed"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="313dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="429dp"
+        android:backgroundTint="#03A9F4"
+        android:text="@string/ok"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
+</RelativeLayout>

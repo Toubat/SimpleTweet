@@ -8,5 +8,7 @@
     <string name="tweet">Tweet</string>
     <string name="what_s_happening">What\'s Happening?</string>
     <string name="compose">Compose</string>
+    <string name="photo">photo</string>
+    <string name="ok">OK</string>
 
 </resources>
