@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcel;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +34,7 @@ public class ComposeActivity extends AppCompatActivity {
     EditText etCompose;
     Button btnTweet;
     TwitterClient client;
+    TextView tvCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,43 @@ public class ComposeActivity extends AppCompatActivity {
         client = TwitterApp.getRestClient(this);
         etCompose = findViewById(R.id.mtCompose);
         btnTweet = findViewById(R.id.btnTweet);
+        tvCounter = findViewById(R.id.tvCounter);
+        tvCounter.setText("0/140");
+        tvCounter.setTextColor(Color.GRAY);
 
+        etCompose.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Toast.makeText(ComposeActivity.this, s, Toast.LENGTH_SHORT).show();
+                int length = s.length();
+                tvCounter.setText(String.format("%d/140", length));
+                if (length <= 140) {
+                    tvCounter.setTextColor(Color.GREEN);
+                } else if (length == 0) {
+                    tvCounter.setTextColor(Color.GRAY);
+                } else {
+                    tvCounter.setTextColor(Color.RED);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                int length = s.length();
+                if (length <= 140) {
+                    tvCounter.setTextColor(Color.rgb(76, 175, 80));
+                } else if (length == 0) {
+                    tvCounter.setTextColor(Color.GRAY);
+                } else {
+                    tvCounter.setTextColor(Color.rgb(218, 15, 15));
+                }
+            }
+        });
         // Set click listener on button
         btnTweet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +97,7 @@ public class ComposeActivity extends AppCompatActivity {
                     return;
                 } else {
                     Toast.makeText(ComposeActivity.this, tweetContent, Toast.LENGTH_SHORT).show();
+                    // Make an API call to Twitter to publish the tweet
                     client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Headers headers, JSON json) {
@@ -82,6 +123,6 @@ public class ComposeActivity extends AppCompatActivity {
                 }
             }
         });
-        // Make an API call to Twitter to publish the tweet
+
     }
 }

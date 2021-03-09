@@ -9,6 +9,8 @@ import androidx.core.view.ViewCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.jetbrains.annotations.NotNull;
+
 public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
 
     public ScrollAwareFABBehavior(Context context, AttributeSet attrs) {
@@ -16,21 +18,29 @@ public class ScrollAwareFABBehavior extends FloatingActionButton.Behavior {
     }
 
     @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, FloatingActionButton child,
-        View directTargetChild, View target, int nestedScrollAxes, int type) {
+    public boolean onStartNestedScroll(@NotNull CoordinatorLayout coordinatorLayout, @NotNull FloatingActionButton child,
+                                       @NotNull View directTargetChild, @NotNull View target, int nestedScrollAxes, int type) {
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL ||
                 super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target,
                         nestedScrollAxes, type);
     }
 
     @Override
-    public void onNestedScroll(CoordinatorLayout coordinatorLayout, FloatingActionButton child,
-                               View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
+    public void onNestedScroll(@NotNull CoordinatorLayout coordinatorLayout, @NotNull FloatingActionButton child,
+                               @NotNull View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type, @NotNull int[] consumed) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed,
-                dyUnconsumed, type);
+                dyUnconsumed, type, consumed);
 
         if (dyConsumed > 0 && child.getVisibility() == View.VISIBLE) {
-            child.hide();
+            child.hide(new FloatingActionButton.OnVisibilityChangedListener()
+            {
+                @Override
+                public void onHidden(FloatingActionButton fab)
+                {
+                    super.onShown(fab);
+                    fab.setVisibility(View.INVISIBLE);
+                }
+            });
         } else if (dyConsumed < 0 && child.getVisibility() != View.VISIBLE) {
             child.show();
         }

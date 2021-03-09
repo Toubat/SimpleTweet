@@ -128,7 +128,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetD
     private void showEditDialog(Context context) {
         FragmentManager fm = getSupportFragmentManager();
         ComposeTweetDialogFragment composeTweetDialogFragment = ComposeTweetDialogFragment.newInstance("Some Title", context);
-        composeTweetDialogFragment.show(fm, "fragment_edit_name");
+        composeTweetDialogFragment.show(fm, "fragment_compose_tweet");
     }
 
     // This is where we will make another API call to get the next page of tweets and add the objects to our current list of tweets

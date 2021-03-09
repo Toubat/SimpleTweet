@@ -62,7 +62,8 @@
         android:src="@drawable/ic_pencil"
         app:layout_anchorGravity="bottom|right|end"
         app:layout_anchor="@id/rvTweets"
+        app:layout_behavior="com.codepath.apps.restclienttemplate.ScrollAwareFABBehavior"
         android:contentDescription="@string/compose" />
-        <!--app:layout_behavior="com.codepath.apps.restclienttemplate.ScrollAwareFABBehavior" -->
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

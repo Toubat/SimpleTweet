@@ -41,4 +41,16 @@
         android:layout_marginEnd="5dp"
         android:text="@string/tweet" />
 
+    <TextView
+        android:id="@+id/tvCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mtCompose"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/btnTweet"
+        android:textColor="#DA0F0F"
+        android:textSize="18sp"
+        tools:text="0/140" />
+
 </RelativeLayout>
